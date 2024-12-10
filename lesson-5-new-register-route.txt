@@ -1,0 +1,16 @@
+## update the import statement at the top
+from flask import Flask, render_template, request, jsonify
+
+## replace the /register route
+@app.route('/register', methods=['POST'])
+def register():
+    json_data = request.get_json()
+    user_match = User.query.filter_by(username=json_data['uname']).first()
+    if user_match:
+        return jsonify({'Message': 'User already exists!'})
+
+    new_user = User(username = json_data['uname'], password = json_data['pword'])
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify({'Message': 'A new user was created!'}) 

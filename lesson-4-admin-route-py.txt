@@ -1,0 +1,5 @@
+@app.route("/admin", methods=["GET"])
+def admin():
+    users = User.query.all()
+    shippers = ShippingInfo.query.all()
+    return render_template("admin.html", users=users, shippers=shippers)
